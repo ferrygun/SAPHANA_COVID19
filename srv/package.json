@@ -1,0 +1,48 @@
+{
+	"dependencies": {
+		"@sap/cds": "^3.10.0",
+		"express": "^4.17.1",
+		"@sap/xssec": "^2.1.17",
+		"@sap/xsenv": "^2.0.0",
+		"hdb": "^0.17.0",
+		"@sap/hdbext": "^6.0.0",
+		"@sap/hana-client": "^2.4.139",
+		"@sap/textbundle": "latest",
+		"@sap/logging": "^5.0.1",
+		"@sap/audit-logging": "^3.0.0",
+		"nodemailer": "^6.2.1",
+		"passport": "~0.4.0",
+		"async": "^3.0.1",
+		"ws": "^7.0.0",
+		"accept-language-parser": "latest",
+		"node-xlsx": "^0.15.0",
+		"node-zip": "~1.1.1",
+		"xmldoc": "~1.1.2",
+		"winston": "^3.2.1",
+		"body-parser": "^1.19.0",
+		"elementtree": "latest",
+		"then-request": "latest",
+		"compression": "~1.7",
+		"helmet": "^3.18.0",
+		"request": "^2.81.0",
+		"csvtojson": "^2.0.10",
+		"geojson": "^0.5.0"
+	},
+	"description": "my description",
+	"devDependencies": {
+		"jest": "^23.6.0",
+		"jest-junit": "^5.2.0"
+	},
+	"files": [],
+	"main": "server.js",
+	"name": "srv",
+	"scripts": {
+		"test": "node node_modules/jest/bin/jest --config jest.json",
+		"test-coverage": "node node_modules/jest/bin/jest --coverage --config jest.json",
+		"start": "node server.js"
+	},
+	"engines": {
+		"node": "8.x"
+	},
+	"version": "1.0.0"
+}

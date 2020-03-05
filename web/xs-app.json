@@ -1,0 +1,10 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "none",
+	"routes": [{
+		"source": "/node(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "none"
+	}]
+}

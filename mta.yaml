@@ -1,0 +1,35 @@
+ID: covid19
+_schema-version: "2.1"
+version: 0.0.1
+modules:
+  - name: covid19-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 256M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: zcovid-uaa
+
+
+  - name: covid19-web
+    type: html5
+    path: web
+    requires:
+      - name: zcovid-uaa
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
+
+resources:
+  - name: zcovid-uaa
+    type: com.sap.xs.uaa-space
+    parameters:
+      config-path: ./xs-security.json
