@@ -1,10 +1,15 @@
 ID: covid19
 _schema-version: "2.1"
 version: 0.0.1
+parameters:
+  enable-parallel-deployments: true
+
 modules:
   - name: covid19-srv
     type: nodejs
     path: srv
+    build-parameters:
+      ignore: ["node_modules/"]
     parameters:
       memory: 512M
       disk-quota: 256M
@@ -19,6 +24,8 @@ modules:
   - name: covid19-web
     type: html5
     path: web
+    build-parameters:
+      ignore: ["node_modules/"]
     requires:
       - name: zcovid-uaa
       - name: srv_api
