@@ -88,6 +88,52 @@ function readData(url, flag) {
 	});
 }
 
+function readStats(url, flag) {
+	return new Promise(resolve => {
+		const result = [];
+		const fin = [];
+		https.get(
+			url,
+			(resp) => {
+				let data = '';
+
+				// A chunk of data has been recieved.
+				resp.on('data', (chunk) => {
+					data += chunk;
+				});
+
+				// The whole response has been received. Print out the result.
+				resp.on('end', () => {
+					var count = 0;
+					csv({
+							noheader: false,
+							output: "json"
+						})
+						.fromString(data)
+						.then((csvRow) => {
+							const result = [];
+							var d = new Date();
+							var date = formatDate(d);
+							//console.log(date);
+							for (var i = 0; i < csvRow.length; i++) {
+								if(!isNaN(csvRow[i][date]) && csvRow[i][date] !== "") {
+									count = count + parseInt(csvRow[i][date]);
+								}
+							}
+							fin.push({
+								'status': flag,
+								'count': count,
+								'date': date
+							})
+							resolve(fin);
+						})
+				});
+
+			}).on("error", (err) => {
+			console.log("Error: " + err.message);
+		});
+	});
+}
 module.exports = function () {
 	var app = express.Router();
 	var userScope = null;
@@ -120,6 +166,29 @@ module.exports = function () {
 		}
 		msg();
 		//res.type("application/json").status(200).send("OK");
+	});
+
+	app.get('/stats', async function (request, response) {
+
+		var confirmed_msg = await readStats(confirmed, "confirmed");
+		var confirmed_msg_count = confirmed_msg[0].count;
+		var date = confirmed_msg[0].date;
+
+		var death_msg = await readStats(death, "death");
+		var death_msg_count = death_msg[0].count;
+
+		var recovered_msg = await readStats(recovered, "recovered");
+		var recovered_msg_count = recovered_msg[0].count;
+
+		const result = [];
+		result.push({
+			'confirmed': confirmed_msg_count,
+			'death': death_msg_count,
+			'recovered': recovered_msg_count,
+			'date': date
+		})
+
+		response.send(JSON.stringify(result));
 	});
 
 	return app;
