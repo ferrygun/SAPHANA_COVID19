@@ -1,30 +1,9 @@
 {
 	"dependencies": {
-		"@sap/cds": "^3.31.2",
 		"express": "^4.17.1",
-		"@sap/xssec": "^2.2.5",
-		"@sap/xsenv": "^2.2.0",
-		"hdb": "^0.17.1",
-		"@sap/hdbext": "^6.1.1",
-		"@sap/hana-client": "^2.4.182",
-		"@sap/textbundle": "latest",
 		"@sap/logging": "^5.2.0",
-		"@sap/audit-logging": "^3.1.0",
-		"nodemailer": "^6.4.4",
-		"passport": "~0.4.1",
-		"async": "^3.2.0",
-		"ws": "^7.2.1",
-		"accept-language-parser": "latest",
-		"node-xlsx": "^0.15.0",
-		"node-zip": "~1.1.1",
-		"xmldoc": "~1.1.2",
-		"winston": "^3.2.1",
-		"body-parser": "^1.19.0",
-		"elementtree": "latest",
-		"then-request": "latest",
 		"compression": "~1.7.4",
 		"helmet": "^3.21.3",
-		"request": "^2.88.2",
 		"csvtojson": "^2.0.10",
 		"geojson": "^0.5.0"
 	},
@@ -42,7 +21,7 @@
 		"start": "node server.js"
 	},
 	"engines": {
-		"node": ">=8.0.0"
+		"node": ">=10.0.0"
 	},
 	"version": "1.0.0"
 }

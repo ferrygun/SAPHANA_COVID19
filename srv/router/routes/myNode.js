@@ -2,7 +2,6 @@
 /*eslint-env node, es6 */
 "use strict";
 const express = require("express");
-const async = require("async");
 const https = require('https');
 const csv = require('csvtojson')
 const GeoJSON = require('geojson')
@@ -65,18 +64,18 @@ function readData(url, flag) {
 						})
 						.fromString(data)
 						.then((csvRow) => {
-							const result = [];
+							const result = {};
 							var d = new Date();
 							var date = formatDate(d);
 							console.log(date);
 							for (var i = 0; i < csvRow.length; i++) {
-								result.push({
+								result[csvRow[i]['Country/Region'] + csvRow[i]['Province/State']] = {
 									'Province/State': csvRow[i]['Province/State'],
 									'Country/Region': csvRow[i]['Country/Region'],
 									'Lat': csvRow[i]['Lat'],
 									'Long': csvRow[i]['Long'],
 									[flag]: csvRow[i][date]
-								})
+								};
 							}
 							resolve(result);
 						})
@@ -146,15 +145,21 @@ module.exports = function () {
 
 			const result = [];
 
-			for (var i = 0; i < confirmed_msg.length; i++) {
+			for (let [confirmedKey, confirmedValue] of Object.entries(confirmed_msg)) {
+				var recoveredFloat = 0;
+				if(typeof(recovered_msg[confirmedKey]) === "undefined") {
+					console.error("Undefinded recovered case for: " + confirmedKey);
+				} else {
+					recoveredFloat = parseFloat(recovered_msg[confirmedKey]['recovered']);
+				}
 				result.push({
-					'Province/State': confirmed_msg[i]['Province/State'],
-					'Country/Region': confirmed_msg[i]['Country/Region'],
-					'Lat': parseFloat(confirmed_msg[i]['Lat']),
-					'Long': parseFloat(confirmed_msg[i]['Long']),
-					'Recovered': parseFloat(recovered_msg[i]['recovered']),
-					'Confirmed': parseFloat(confirmed_msg[i]['confirmed']),
-					'Death': parseFloat(death_msg[i]['death'])
+					'Province/State': confirmedValue['Province/State'],
+					'Country/Region': confirmedValue['Country/Region'],
+					'Lat': parseFloat(confirmedValue['Lat']),
+					'Long': parseFloat(confirmedValue['Long']),
+					'Recovered': recoveredFloat,
+					'Confirmed': parseFloat(confirmedValue['confirmed']),
+					'Death': parseFloat(death_msg[confirmedKey]['death'])
 				})
 			}
 
