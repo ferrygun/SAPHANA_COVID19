@@ -1,2 +1,4 @@
 ### Read Data
 GET http://localhost:3000/node/getSessionInfo
+### Read Stats
+GET http://localhost:3000/node/stats
