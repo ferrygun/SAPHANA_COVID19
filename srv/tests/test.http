@@ -1,0 +1,2 @@
+### Read Data
+GET http://localhost:3000/node/getSessionInfo

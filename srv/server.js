@@ -4,12 +4,7 @@
 const port = process.env.PORT || 3000;
 const server = require("http").createServer();
 
-const cds = require("@sap/cds");
 //Initialize Express App for XSA UAA and HDBEXT Middleware
-const xsenv = require("@sap/xsenv");
-const passport = require("passport");
-const xssec = require("@sap/xssec");
-const xsHDBConn = require("@sap/hdbext");
 const express = require("express");
 global.__base = __dirname + "/";
 

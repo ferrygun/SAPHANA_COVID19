@@ -2,7 +2,6 @@
 /*eslint-env node, es6 */
 "use strict";
 const express = require("express");
-const async = require("async");
 const https = require('https');
 const csv = require('csvtojson')
 const GeoJSON = require('geojson')
@@ -145,14 +144,23 @@ module.exports = function () {
 			const recovered_msg = await readData(recovered, "recovered");
 
 			const result = [];
+			var recoveredFloat;
 
 			for (var i = 0; i < confirmed_msg.length; i++) {
+				if(typeof(confirmed_msg[i]) === "undefined") {
+					console.error("Undefinded confirmed case at index: " + i);
+				}
+				if(typeof(recovered_msg[i]) === "undefined") {
+					console.error("Undefinded recovered case at index: " + i);
+				} else {
+					recoveredFloat = parseFloat(recovered_msg[i]['recovered']);
+				}
 				result.push({
 					'Province/State': confirmed_msg[i]['Province/State'],
 					'Country/Region': confirmed_msg[i]['Country/Region'],
 					'Lat': parseFloat(confirmed_msg[i]['Lat']),
 					'Long': parseFloat(confirmed_msg[i]['Long']),
-					'Recovered': parseFloat(recovered_msg[i]['recovered']),
+					'Recovered': recoveredFloat,
 					'Confirmed': parseFloat(confirmed_msg[i]['confirmed']),
 					'Death': parseFloat(death_msg[i]['death'])
 				})
