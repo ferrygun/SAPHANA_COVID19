@@ -6,5 +6,11 @@
 		"destination": "srv_api",
 		"csrfProtection": true,
 		"authenticationType": "none"
+	},
+	{
+		"source": "^/(.*)$",
+		"target": "$1",
+		"localDir": "resources",
+		"authenticationType": "none"
 	}]
 }
