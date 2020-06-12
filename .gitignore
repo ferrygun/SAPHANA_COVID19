@@ -9,3 +9,4 @@ mta_archives/
 node_modules/
 Makefile*
 mta-op*
+default-env.json
