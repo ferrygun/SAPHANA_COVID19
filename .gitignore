@@ -7,3 +7,4 @@ extended_runnable_file.html
 sap-ui-cachebuster-info.json
 mta_archives/
 node_modules/
+Makefile*
