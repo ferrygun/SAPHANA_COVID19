@@ -1,1 +1,8 @@
-{}
+{
+  "scripts": {
+		"build:mta": "mbt build -p=xsa",
+		"deploy:xsa": "xs deploy mta_archives/covid19_0.0.1.mtar",
+		"build:cf": "mbt build -p=cf",
+		"deploy:cf": "cf deploy mta_archives/covid19_0.0.1.mtar"
+	}
+}
